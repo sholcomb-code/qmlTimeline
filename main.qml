@@ -27,7 +27,7 @@ Window {
                 if (xPositionAnimation.running)
                     xPositionAnimation.stop();
                 else
-                    xPositionAnimation.restart();
+                    xPositionAnimation.start();
             }
         }
     }
@@ -41,6 +41,32 @@ Window {
 
         color: "#008000"
         onXChanged: print("Rec21 x changed to " + x)
+
+        MouseArea {
+            anchors.fill: parent
+
+            property bool increasing: true;
+
+            onClicked: {
+                if (!xPositionAnimation.running) {
+                    if (increasing) {
+                        timeline.currentFrame = timeline.currentFrame + 10;
+
+                        if (timeline.currentFrame >= timeline.endFrame) {
+                            increasing = false;
+                        }
+                    }
+                    else {
+                        timeline.currentFrame = timeline.currentFrame - 10;
+
+                        if (timeline.currentFrame <= timeline.startFrame) {
+                            increasing = true;
+                        }
+                    }
+
+                }
+            }
+        }
     }
 
     ProgressBar {
