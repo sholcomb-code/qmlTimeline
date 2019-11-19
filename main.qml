@@ -1,5 +1,6 @@
 import QtQuick 2.14
 import QtQuick.Window 2.14
+import QtQuick.Controls 2.14
 
 import QtQuick.Timeline 1.0
 
@@ -18,6 +19,17 @@ Window {
 
         color: "#800000"
         onXChanged: print("Rect1 x changed to " + x)
+
+        MouseArea {
+            anchors.fill: parent
+
+            onClicked: {
+                if (xPositionAnimation.running)
+                    xPositionAnimation.stop();
+                else
+                    xPositionAnimation.restart();
+            }
+        }
     }
 
     Rectangle {
@@ -31,12 +43,25 @@ Window {
         onXChanged: print("Rec21 x changed to " + x)
     }
 
+    ProgressBar {
+        id: progressBar
+        x:5
+        y: 200
+        width: parent.width - 25;
+        height: 10
+
+        from: timeline.startFrame
+        to: timeline.endFrame
+
+        value: timeline.currentFrame
+    }
+
     Timeline {
         id: timeline
         endFrame: 100
         startFrame: 0
 
-        enabled: false
+        enabled: true
 
         onCurrentFrameChanged: print("timeline currentFrame is " + currentFrame)
 
@@ -54,17 +79,7 @@ Window {
         ]
 
         animations: [
-            TimelineAnimation  {pingPong: false; duration: 1000; from: 0; to: 100; running: false; id: xAnimation}
+            TimelineAnimation  {pingPong: true; duration: 1000; from: 0; to: 100; running: false; id: xPositionAnimation}
         ]
-    }
-
-    Component.onCompleted: {
-        print ("timeline enabled is : " + timeline.enabled)
-        print ("timeline startFrame and endFrame are " + timeline.startFrame + ", " + timeline.endFrame)
-
-        timeline.enabled = true;
-        print ("timeline is now enabled")
-
-        xAnimation.restart()
     }
 }
