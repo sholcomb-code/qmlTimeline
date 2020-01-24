@@ -8,12 +8,12 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("Qml Timeline Demo")
 
     Rectangle {
         id: rect1
         x: 0
-        y: 0
+        y: 25
         width: 50
         height: 50
 
@@ -35,7 +35,7 @@ Window {
     Rectangle {
         id: rect2
         x: 0
-        y: 100
+        y: 125
         width: 50
         height: 50
 
@@ -94,13 +94,13 @@ Window {
         keyframeGroups: [
             KeyframeGroup { target: rect1; property: "x";
                 Keyframe { frame: 0; value: 0 }
-                Keyframe { frame: 50; value: 50 }
-                Keyframe { frame: 100; value: 200 }
+                Keyframe { frame: 50; value: 100 }
+                Keyframe { frame: 100; value: 400 }
             },
             KeyframeGroup { target: rect2; property: "x" ;
                 Keyframe { frame: 0; value: 0 }
-                Keyframe { frame: 50; value: 100}
-                Keyframe { frame: 100; value: 200 }
+                Keyframe { frame: 50; value: 300}
+                Keyframe { frame: 100; value: 400 }
             }
         ]
 
